@@ -34,9 +34,9 @@ const displayController = (function() {
 
         if(game.gameboard[positionX][positionY] === '') {
             game.gameboard[positionX][positionY] = playerSign;
-            console.log(game.gameboard);
         }
         
+        isGameOver(positionX, positionY)
     }
 
     function updateGameboard() {
@@ -56,6 +56,45 @@ const displayController = (function() {
     }
     
 })()
+
+
+const isGameOver = function(positionX, positionY) {
+
+    (function () {
+        if(columnCheck(game.gameboard) || diagonalCheck(game.gameboard) || rowCheck(game.gameboard)) {
+            console.log('winner')
+        }
+    })()
+
+    function columnCheck(board) {
+        let column = [board[0][positionY], board[1][positionY], board[2][positionY]]
+        if (column.every(item => item === 'X') || 
+            column.every(item => item === '0')) {
+                return true;
+        }
+    }
+
+    function rowCheck(board) {
+        let row = [board[positionX][0], board[positionX][1], board[positionX][2]]
+        if (row.every(item => item === 'X') || 
+            row.every(item => item === '0')) {
+                return true;
+        }
+    }
+
+    function diagonalCheck(board) {
+        let diagonal1 = [board[0][0], board[1][1], board[2][2]];
+        let diagonal2 = [board[0][2], board[1][1], board[2][0]]
+        if (diagonal1.every(item => item === 'X') || 
+            diagonal1.every(item => item === '0') ||
+            diagonal2.every(item => item === 'X') || 
+            diagonal2.every(item => item === '0')) {
+                return true;
+        }
+    }
+
+    
+}
 
 const button = document.querySelector('button');
 const overlay = document.querySelector('.overlay');

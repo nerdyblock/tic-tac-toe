@@ -20,7 +20,8 @@ const game = (function () {
 })();
 
 const displayController = (function() {
-    playerSign = player1.playerChoice;
+    let playerSign = player1.playerChoice;
+
 
     const blockPos = document.querySelectorAll('[data-position]');
     blockPos.forEach(block => {
@@ -35,8 +36,10 @@ const displayController = (function() {
         if(game.gameboard[positionX][positionY] === '') {
             game.gameboard[positionX][positionY] = playerSign;
         }
-        
-        isGameOver(positionX, positionY)
+        isGameOver(positionX, positionY).winnerCheck();
+        if(isGameOver(positionX, positionY).checkDraw()){
+            console.log('draw')
+        }
     }
 
     function updateGameboard() {
@@ -57,16 +60,16 @@ const displayController = (function() {
     
 })()
 
-
 const isGameOver = function(positionX, positionY) {
+    const board = game.gameboard;
 
-    (function () {
-        if(columnCheck(game.gameboard) || diagonalCheck(game.gameboard) || rowCheck(game.gameboard)) {
+    function winnerCheck() {
+        if(columnCheck(board) || diagonalCheck(board) || rowCheck(board)) {
             console.log('winner')
         }
-    })()
+    }
 
-    function columnCheck(board) {
+    function columnCheck() {
         let column = [board[0][positionY], board[1][positionY], board[2][positionY]]
         if (column.every(item => item === 'X') || 
             column.every(item => item === '0')) {
@@ -74,7 +77,7 @@ const isGameOver = function(positionX, positionY) {
         }
     }
 
-    function rowCheck(board) {
+    function rowCheck() {
         let row = [board[positionX][0], board[positionX][1], board[positionX][2]]
         if (row.every(item => item === 'X') || 
             row.every(item => item === '0')) {
@@ -82,7 +85,7 @@ const isGameOver = function(positionX, positionY) {
         }
     }
 
-    function diagonalCheck(board) {
+    function diagonalCheck() {
         let diagonal1 = [board[0][0], board[1][1], board[2][2]];
         let diagonal2 = [board[0][2], board[1][1], board[2][0]]
         if (diagonal1.every(item => item === 'X') || 
@@ -93,7 +96,25 @@ const isGameOver = function(positionX, positionY) {
         }
     }
 
-    
+    function checkDraw() {
+       if(winnerCheck()) {
+           return false;
+       }
+       for(let i=0; i<3; i++) {
+           for(let j=0; j<3; j++) {
+               if(board[i][j] === ''){
+                   return false;
+               }
+           }
+       }
+
+       return true;
+    }  
+
+    return {
+        winnerCheck,
+        checkDraw
+    }
 }
 
 const button = document.querySelector('button');

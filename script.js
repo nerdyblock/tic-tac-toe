@@ -17,7 +17,6 @@ const game = (function () {
         gameboard : gameBoard.gameBoardArray
     }
 
-
 })();
 
 const displayController = (function() {
@@ -42,7 +41,7 @@ const displayController = (function() {
 
     function updateGameboard() {
         if(this.textContent === '') {
-            this.textContent = playerSign;
+            this.querySelector('h1').textContent = playerSign;
             changePlayer();
         }   
     }
@@ -55,8 +54,22 @@ const displayController = (function() {
             playerSign = player1.playerChoice
         }
     }
-
     
-
 })()
 
+const button = document.querySelector('button');
+const overlay = document.querySelector('.overlay');
+
+button.addEventListener('click', openOverlay)
+
+overlay.addEventListener('click', closeOverlay);
+
+function openOverlay() {
+    overlay.classList.add('active');
+    document.querySelector('.winning-text').classList.add('active');
+}
+
+function closeOverlay() {
+    overlay.classList.remove('active');
+    document.querySelector('.winning-text').classList.remove('active');
+}

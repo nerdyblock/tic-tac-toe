@@ -2,11 +2,16 @@ function createPlayer(name, playerChoice) {
     return {
         name,
         playerChoice,
+        // setName(newName) {
+        //     this.name = newName;
+        // }
     }
 }
 
-const player1 = createPlayer('player1', '0')
-const Player2 = createPlayer('player2', 'X') 
+const player1 = createPlayer('player1', '0');
+const player2 = createPlayer('player2', 'X');
+
+const players = [player1, player2];
 
 const game = (function () {
     const gameBoard = {
@@ -17,7 +22,7 @@ const game = (function () {
 
     function changePlayer() {
         if(playerSign === player1.playerChoice) {
-            playerSign = Player2.playerChoice
+            playerSign = player2.playerChoice
         }
         else {
             playerSign = player1.playerChoice
@@ -28,14 +33,16 @@ const game = (function () {
         return playerSign;
     }
 
-    // const getPlayer = function() {
-
-    // }
+    const getPlayer = function(sign) {
+        let player = players.filter(item => item.playerChoice === sign);
+        return player[0].name;
+    }
 
     return {
         gameboard : gameBoard.gameBoardArray,
         changePlayer,
-        getSign
+        getSign,
+        getPlayer
     }
 
 })();
@@ -52,8 +59,6 @@ const isGameOver = function() {
     }
 
     function columnCheck() {
-
-    
         for(let row=0; row<3; row++) {
             let column = [];
             for(let col=0; col<3; col++) {
@@ -65,17 +70,9 @@ const isGameOver = function() {
             }
         }
    
-
-        /* let column = [board[0][positionY], board[1][positionY], board[2][positionY]]
-        if (column.every(item => item === 'X') || 
-            column.every(item => item === '0')) {
-                return true;
-        } */
     }
 
     function rowCheck() {
-
-        
         for(let row=0; row<3; row++) {
             if (board[row].every(item => item === 'X') || 
                 board[row].every(item => item === '0')) {
@@ -83,18 +80,6 @@ const isGameOver = function() {
             }
         }
        
-
-        // board.forEach(item => {
-        //     if (item.every(e => e === 'X') || 
-        //         item.every(e => e === '0')) {
-        //         return true;
-        //     }
-        // })
-        // let row = [board[positionX][0], board[positionX][1], board[positionX][2]]
-        // if (row.every(item => item === 'X') || 
-        //     row.every(item => item === '0')) {
-        //         return true;
-        // }
     }
 
     function diagonalCheck() {
@@ -138,8 +123,6 @@ const isGameOver = function() {
     }
 
     return {
-        checkWinner,
-        checkDraw,
         gameOver,
         getWinner
     }
@@ -151,12 +134,14 @@ const showResult = function() {
     const overlay = document.querySelector('.overlay');
     overlay.addEventListener('click', closeResult);
 
-    if(isGameOver().checkDraw()) {
-        result.textContent = 'It is a DRAW!!'
+    if(isGameOver().gameOver() && isGameOver().getWinner() === '') {
+        result.textContent = "It's a DRAW!!"
         openResult();
     }
-    else if(isGameOver().checkWinner()) {
-        result.textContent = `${isGameOver().getWinner()} WON!!`;
+    else if(isGameOver().getWinner() !== '') {
+        let sign = isGameOver().getWinner();
+        let player = game.getPlayer(sign);
+        result.textContent = `${player} WON!!`;
         openResult();
     }
 
@@ -168,14 +153,12 @@ const showResult = function() {
     function closeResult() {
         overlay.classList.remove('active');
         document.querySelector('.resultDiv').classList.remove('active');
+        // window.location.reload();
     }
 
 };
 
 const displayController = (function() {
-    // let playerSign = player1.playerChoice;
-
-
     const blockPos = document.querySelectorAll('[data-position]');
     blockPos.forEach(block => {
         block.addEventListener('click', updateGameboardArray);
@@ -190,32 +173,34 @@ const displayController = (function() {
         if(game.gameboard[positionX][positionY] === '') {
             game.gameboard[positionX][positionY] = game.getSign();
         }
-        // isGameOver(positionX, positionY).winnerCheck();
-        if(isGameOver().checkDraw()){
-            console.log('draw')
-        }
     }
 
     function updateGameboard() {
         if(this.textContent === '') {
             this.querySelector('h1').textContent = game.getSign();
-            // changePlayer();
         }  
-        
         
         if(isGameOver().gameOver()) {
             showResult();
         }
     }
 
-    // console.log(isGameOver().gameOver());
-
-    
-    
 })();
 
+const playerName = document.querySelectorAll('.player-name');
+playerName.forEach(item => {
 
-
+    // click to change player name and hit enter to save it
+    
+    item.addEventListener('click', function() {
+        item.contentEditable = "true"; 
+        item.addEventListener('keypress', function(e) {
+            if(e.key === 'Enter') {
+                item.contentEditable = "false";
+            }
+        })
+    });
+})
 
 
 

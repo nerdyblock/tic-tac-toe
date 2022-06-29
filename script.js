@@ -2,9 +2,12 @@ function createPlayer(name, playerChoice) {
     return {
         name,
         playerChoice,
-        // setName(newName) {
-        //     this.name = newName;
-        // }
+        getName() {
+            return this.name;
+        },
+        setName(newName) {
+            this.name = newName;
+        }
     }
 }
 
@@ -35,7 +38,7 @@ const game = (function () {
 
     const getPlayer = function(sign) {
         let player = players.filter(item => item.playerChoice === sign);
-        return player[0].name;
+        return player[0].getName();
     }
 
     return {
@@ -159,6 +162,8 @@ const showResult = function() {
 };
 
 const displayController = (function() {
+    const playerName = document.querySelectorAll('.player-name');
+
     const blockPos = document.querySelectorAll('[data-position]');
     blockPos.forEach(block => {
         block.addEventListener('click', updateGameboardArray);
@@ -185,22 +190,27 @@ const displayController = (function() {
         }
     }
 
+    
+    playerName.forEach(item => {
+
+        item.addEventListener('click', function() {
+            let newPlayer;
+            item.contentEditable = "true"; 
+
+            (item.textContent === 'player1') ? newPlayer = player1: newPlayer = player2;
+
+            item.addEventListener('keypress', function(e) {
+                if(e.key === 'Enter') {
+                    item.contentEditable = "false";
+                    newPlayer.setName(item.textContent);
+                }
+            });
+        });
+    });
+
 })();
 
-const playerName = document.querySelectorAll('.player-name');
-playerName.forEach(item => {
 
-    // click to change player name and hit enter to save it
-    
-    item.addEventListener('click', function() {
-        item.contentEditable = "true"; 
-        item.addEventListener('keypress', function(e) {
-            if(e.key === 'Enter') {
-                item.contentEditable = "false";
-            }
-        })
-    });
-})
 
 
 

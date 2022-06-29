@@ -5,9 +5,33 @@
 }
 
 header h1 {
-    margin-bottom: 50px;
     padding: 50px;
     text-align: center;
+}
+
+.player-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+    margin-bottom: 20px;
+}
+
+.player {
+    display: flex;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 12px 18px;
+    gap: 1em;
+}
+
+.player .player-name {
+    padding: 10px;
+    border-right: 1px solid gray;
+}
+
+.player .player-sign {
+    padding: 10px;
 }
 
 .container {
@@ -33,7 +57,7 @@ header h1 {
     border-radius: 10px;
     padding: 20px;
     transform: translate(-50%, -50%) scale(0);
-    transition: 200ms ease-in-out;
+    transition: 200ms ease-in;
     z-index: 10;
 }
 
@@ -49,7 +73,7 @@ header h1 {
     left: 0;
     right: 0;
     background-color: rgba(0,0,0,0.5);
-    transition: 200ms ease-in-out;
+    transition: 200ms ease-in;
     pointer-events: none;
 }
 

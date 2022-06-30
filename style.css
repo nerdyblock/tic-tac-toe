@@ -25,6 +25,11 @@ header h1 {
     gap: 1em;
 }
 
+.player.active {
+    background-color: gray;
+    color: white;
+}
+
 .player .player-name {
     padding: 10px;
     border-right: 1px solid gray;

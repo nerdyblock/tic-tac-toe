@@ -2,10 +2,16 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 header h1 {
-    padding: 50px;
+    padding: 40px;
     text-align: center;
 }
 
@@ -39,6 +45,12 @@ header h1 {
     padding: 10px;
 }
 
+.change-name-direction {
+    text-align: center;
+    margin: 20px;
+    color: gray
+}
+
 .container {
     display: grid;
     grid-template-columns: repeat(3, 100px);
@@ -51,6 +63,24 @@ header h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.restart {
+    margin: 40px;
+    text-align: center
+}
+
+.restart button {
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: rgb(216, 166, 213);
+    border: none;
+    border-radius: 15px;
+    padding: 20px 28px;
+}
+
+.restart button:hover {
+    background-color: rgba(216, 166, 213, 0.788);
 }
 
 .resultDiv {

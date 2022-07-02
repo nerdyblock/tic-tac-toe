@@ -21,7 +21,9 @@ const players = [player1, player2];
 
 const game = (function () {
     const gameBoard = {
-        gameBoardArray : [...Array(3)].map(e => Array(3).fill('')),
+        gameBoardArray : [['','',''],
+                          ['','',''],
+                          ['','',''],],
     }
 
     let playerSign = player1.getSign();
@@ -260,6 +262,8 @@ const displayController = (function() {
               
         });
     });
+
+    document.querySelector('.restart button').addEventListener('click', () => window.location.reload());
 
 })();
 

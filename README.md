@@ -1,7 +1,5 @@
 # tic-tac-toe
 
-https://nerdyblock.github.io/tic-tac-toe/
-
 Simple Tic Tac Toe project from odin project [curriculum](https://www.theodinproject.com/lessons/node-path-javascript-tic-tac-toe)  
 Live version is [here](https://nerdyblock.github.io/tic-tac-toe/
 )  

@@ -68,7 +68,7 @@ header h1 {
     display: grid;
     grid-template-columns: repeat(3, 90px);
     grid-template-rows: repeat(3, 90px);
-    gap: 0.4em;
+    gap: 0.8em;
     justify-content: center;
 }
 
@@ -78,6 +78,11 @@ header h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.block:hover {
+    transform: scale(1.1);
+    background: rgba(209, 208, 208, 0.555);
 }
 
 .restart {

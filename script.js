@@ -14,7 +14,7 @@ function createPlayer(name, playerChoice) {
     }
 }
 
-const player1 = createPlayer('player1', '0');
+const player1 = createPlayer('player1', 'O');
 const player2 = createPlayer('player2', 'X');
 
 const players = [player1, player2];
@@ -73,7 +73,7 @@ const isGameOver = (function() {
                 column.push(board[col][row])
             }
             if (column.every(item => item === 'X') || 
-                column.every(item => item === '0')) {
+                column.every(item => item === 'O')) {
                     return true;
             }
         }
@@ -83,7 +83,7 @@ const isGameOver = (function() {
     function rowCheck() {
         for(let row=0; row<3; row++) {
             if (board[row].every(item => item === 'X') || 
-                board[row].every(item => item === '0')) {
+                board[row].every(item => item === 'O')) {
                 return true;
             }
         }
@@ -94,9 +94,9 @@ const isGameOver = (function() {
         let diagonal1 = [board[0][0], board[1][1], board[2][2]];
         let diagonal2 = [board[0][2], board[1][1], board[2][0]]
         if (diagonal1.every(item => item === 'X') || 
-            diagonal1.every(item => item === '0') ||
+            diagonal1.every(item => item === 'O') ||
             diagonal2.every(item => item === 'X') || 
-            diagonal2.every(item => item === '0')) {
+            diagonal2.every(item => item === 'O')) {
                 return true;
         }
     }
@@ -143,10 +143,10 @@ const displayController = (function() {
     const overlay = document.querySelector('.overlay');
 
     playerSign.forEach(item => {
-        if(item.textContent === '0' && player1.getSign() === 'X') {
+        if(item.textContent === 'O' && player1.getSign() === 'X') {
             item.closest('.player').classList.add('active');
         }
-        else if(item.textContent === 'X' && player1.getSign() === '0') {
+        else if(item.textContent === 'X' && player1.getSign() === 'O') {
             item.closest('.player').classList.add('active');
         }
     });
@@ -185,11 +185,11 @@ const displayController = (function() {
 
     function playerHighlight() {
         playerSign.forEach(item => {
-            if(item.textContent === 'X' && game.getSign() === '0') {
+            if(item.textContent === 'X' && game.getSign() === 'O') {
                 item.closest('.player').previousElementSibling.classList.remove('active');
                 item.closest('.player').classList.add('active');
             }
-            else if(item.textContent === '0' && game.getSign() === 'X') {
+            else if(item.textContent === 'O' && game.getSign() === 'X') {
                 item.closest('.player').nextElementSibling.classList.remove('active');
                 item.closest('.player').classList.add('active');
             }
@@ -250,7 +250,7 @@ const displayController = (function() {
         for(let row=0; row<3; row++) {
             for(let col=0; col<3; col++) {
                 if(game.gameboard[row][col] === 'X' ||
-                    game.gameboard[row][col] === '0') {
+                    game.gameboard[row][col] === 'O') {
                         game.gameboard[row][col] = '';
                 }
             }
